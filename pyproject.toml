@@ -1,0 +1,18 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "intro_ml_lecture"
+version = "0.1.0"
+description = "Lecture notes for Intro to Machine Learning"
+authors = ["Brian Staber <brian.staber@gmail.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+sphinx = "^8.2.3"
+furo = "^2024.6.4"
+myst-parser = "^4.0.0"
+sphinx-inline-tabs = "^2023.4.21"
+sphinx-copybutton = "^0.5.2"
