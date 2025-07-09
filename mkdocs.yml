@@ -55,6 +55,7 @@ theme:
   
 plugins:
   - search
+  - tags
   - marimo: {}
 
 extra_javascript:
