@@ -2,8 +2,9 @@ name: Deploy MkDocs to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request: 
+    branches: [main]
 
 permissions:
   contents: read
@@ -43,6 +44,7 @@ jobs:
           path: site  # MkDocs builds to ./site by default
 
   deploy:
+    if: github.event_name == 'push'
     needs: build
     runs-on: ubuntu-latest
     environment:
