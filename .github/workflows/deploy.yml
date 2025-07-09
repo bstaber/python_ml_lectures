@@ -2,14 +2,14 @@ name: Deploy MkDocs to GitHub Pages
 
 on:
   push:
-    branches: [main]
-  pull_request: 
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build:
@@ -32,29 +32,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install --no-interaction --no-root
+          poetry install --no-root
 
-      - name: Build MkDocs site
+      - name: Build site with MkDocs
         run: |
           poetry run mkdocs build --strict
 
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site  # MkDocs builds to ./site by default
-
-  deploy:
-    if: github.event_name == 'push'
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: oprypin/push-to-gh-pages@v3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
           publish_dir: site
-          commit_message: 'Generate docs: '
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
