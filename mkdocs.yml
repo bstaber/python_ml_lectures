@@ -55,7 +55,8 @@ theme:
   
 plugins:
   - search
-  - marimo: {}
+  - marimo:
+      wasm: true
 
 extra_javascript:
   - javascripts/katex.js
