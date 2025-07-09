@@ -20,12 +20,27 @@ $$
 
 where $\overline{x}$ and $\overline{y}$ are the means of $x$ and $y$, respectively.
 
+## Pure Python example using the standard libraries
 
-## Step 1: Generate toy data with noise
+We first show off how to implement the linear regression problem using only lists and standard libraries.
 
-We simulate a linear relationship with added Gaussian noise:
+We simulate a linear relationship with added Gaussian noise.
 
 ```python
+import random
+
+# Parameters
+n = 100
+a_true = 2.0
+b_true = 1.0
+noise_std = 1.0
+
+# Generate toy data
+X_train = [random.uniform(0, 10) for _ in range(n)]
+y_train = [a_true * x + b_true + random.gauss(0, noise_std) for x in x_values]
+```
+
+```python {marimo}
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -46,19 +61,11 @@ plt.xlabel("x")
 plt.ylabel("y")
 plt.title("Toy data with noise")
 plt.legend()
-plt.show()
 ```
 
-We now use this data (converted to lists) for a manual implementation.
-
-## Step 2: Pure Python implementation using lists
-
-We compute the slope and intercept using the mean, covariance, and variance:
+We compute the slope and intercept using the mean, covariance, and variance. These functions are not built-in in Python, so we can implement them ourselves.
 
 ```python
-x_list = x.tolist()
-y_list = y.tolist()
-
 def mean(values):
     return sum(values) / len(values)
 
@@ -68,22 +75,36 @@ def covariance(x, y, x_mean, y_mean):
 def variance(values, mean_value):
     return sum((v - mean_value) ** 2 for v in values) / len(values)
 
-x_mean = mean(x_list)
-y_mean = mean(y_list)
+x_mean = mean(X_train)
+y_mean = mean(y_train)
 
-cov_xy = covariance(x_list, y_list, x_mean, y_mean)
-var_x = variance(x_list, x_mean)
+cov_xy = covariance(X_train, y_train, x_mean, y_mean)
+var_x = variance(X_train, x_mean)
 
 a = cov_xy / var_x
 b = y_mean - a * x_mean
-
-print(f"Estimated slope (pure Python): {a:.2f}")
-print(f"Estimated intercept (pure Python): {b:.2f}")
 ```
 
-## Step 3: NumPy implementation
+## NumPy implementation
 
-We repeat the same process using NumPy, but without calling a solver:
+Let's perform the same but by relying on NumPy instead.
+
+We simulate the same data but using NumPy's module `np.random`.
+
+```python
+import numpy as np
+np.random.seed(42)
+n_samples = 50
+
+true_a = 2.5
+true_b = 1.0
+x = np.random.uniform(0, 10, size=n_samples)
+noise = np.random.normal(0, 2, size=n_samples)
+
+y = true_a * x + true_b + noise
+```
+
+We can next estimate the slope and intercept as well.
 
 ```python
 x_mean = np.mean(x)
@@ -94,24 +115,45 @@ var_x = np.mean((x - x_mean) ** 2)
 
 a = cov_xy / var_x
 b = y_mean - a * x_mean
-
-print(f"Estimated slope (NumPy): {a:.2f}")
-print(f"Estimated intercept (NumPy): {b:.2f}")
 ```
 
-## Step 4: Visualize the fitted line
+## Visualize the fitted line
+
+Compute predictions over a test set and compare the fitted line with the true line.
 
 ```python
-y_pred = a * x + b
+X_test = np.linspace(0, 10, 100)
+y_pred = a * x_test + b
 
-plt.scatter(x, y, label="Noisy data")
-plt.plot(x, true_a * x + true_b, color="green", linestyle="--", label="True line")
-plt.plot(x, y_pred, color="red", label="Fitted line")
+plt.scatter(X_train, y_train, label="Noisy data")
+plt.plot(X_test, true_a * X_test + true_b, color="green", linestyle="--", label="True line")
+plt.plot(X_test, y_pred, color="red", label="Fitted line")
 plt.xlabel("x")
 plt.ylabel("y")
 plt.title("Linear regression fit")
 plt.legend()
-plt.show()
+```
+
+```python {marimo}
+x_mean = np.mean(x)
+y_mean = np.mean(y)
+
+cov_xy = np.mean((x - x_mean) * (y - y_mean))
+var_x = np.mean((x - x_mean) ** 2)
+
+a = cov_xy / var_x
+b = y_mean - a * x_mean
+
+x_test = np.linspace(0, 10, 100)
+y_pred = a * x_test + b
+
+plt.scatter(x, y, label="Noisy data")
+plt.plot(x_test, true_a * x_test + true_b, color="green", linestyle="--", label="True line")
+plt.plot(x_test, y_pred, color="red", label="Fitted line")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Linear regression fit")
+plt.legend()
 ```
 
 ## Summary

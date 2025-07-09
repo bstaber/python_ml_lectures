@@ -1,39 +1,9 @@
 # Introduction
 
-/// marimo-embed
-    height: 800px
-    mode: read
-    app_width: wide
+This section is designed to help you get up to speed with the core Python skills and numerical tools you'll need for this project. Whether you're new to programming or just brushing up, you'll find concise explanations and hands-on examples covering:
 
-```python
-@app.cell
-def __():
-    import marimo as mo
-    import numpy as np
-    import matplotlib.pyplot as plt
-    import pandas as pd
+* Basic Python programming
+* NumPy basics
+* A step-by-step implementation of linear regression
 
-    # Create interactive sliders
-    freq = mo.ui.slider(1, 10, value=2, label="Frequency")
-    amp = mo.ui.slider(0.1, 2, value=1, label="Amplitude")
-
-    mo.hstack([freq, amp])
-    return
-
-@app.cell
-def __():
-    # Plot the sine wave
-    x = np.linspace(0, 10, 1000)
-    y = amp.value * np.sin(freq.value * x)
-
-    plt.figure(figsize=(10, 6))
-    plt.plot(x, y)
-    plt.title('Interactive Sine Wave')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.grid(True)
-    plt.gca()
-    return
-```
-
-///
+By the end of this onboarding, you'll be ready to dive deeper into more advanced topics

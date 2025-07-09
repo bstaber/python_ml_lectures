@@ -10,16 +10,9 @@ print("Hello, world!")
 
 Let's start with a classic. Create a file `hello_world.py` and write:
 
-````{tab} Code
 ```python
 print("Hello, world!")
-````
-
-````{tab} Output
-```bash
->> Hello, world!
 ```
-````
 
 Run your first script using your favorite IDE and by simply typing in your terminal
 
@@ -40,54 +33,26 @@ is_valid = True  # boolean
 
 You can check the type of a variable using the `type()` function:
 
-````{tab} Code
 ```python
 print(type(x))
 print(type(pi))
 print(type(name))
 print(type(is_valid))
 ```
-````
-
-````{tab} Output
-```bash
->>> print(type(x))
-<class 'int'>
->>> print(type(pi))
-<class 'float'>
->>> print(type(name))
-<class 'str'>
->>> print(type(is_valid))
-<class 'bool'>
-```
-````
 
 ## Strings
 
 Strings are sequences of characters. You can work with them in several ways:
 
-````{tab} Code
 ```python
 greeting = "Hello"
 name = "Alice"
 message = f"{greeting}, {name}!"  # f-strings
 print(message)
 ```
-````
-
-````{tab} Output
-```bash
->>> greeting = "Hello"
->>> name = "Alice"
->>> message = f"{greeting}, {name}!"  # f-strings
->>> print(message)
-Hello, Alice!
-```
-````
 
 Useful string methods include:
 
-````{tab} Code
 ```python
 text = "  Python Basics  "
 text.strip()         # Remove whitespace
@@ -95,21 +60,6 @@ text.lower()         # Convert to lowercase
 text.split()         # Split into a list of words
 "-".join(["A", "B"]) # Join into a string
 ```
-````
-
-````{tab} Output
-```bash
->>> text = "  Python Basics  "
->>> text.strip()
-'Python Basics'
->>> text.lower()
-'  python basics  '
->>> text.split()
-['Python', 'Basics']
->>> "-".join(["A", "B"])
-'A-B'
-```
-````
 
 ## Collections
 
@@ -117,22 +67,11 @@ text.split()         # Split into a list of words
 
 Lists are ordered collections of items:
 
-````{tab} Code
 ```python
 fruits = ["apple", "banana", "cherry"]
 fruits.append("kiwi")      # Add an item
 print(fruits[0])           # Access by index
 ```
-````
-
-````{tab} Output
-```bash
->>> fruits = ["apple", "banana", "cherry"]
->>> fruits.append("kiwi")      # Add an item
->>> print(fruits[0])           # Access by index
-apple
-```
-````
 
 Useful methods include:
 
